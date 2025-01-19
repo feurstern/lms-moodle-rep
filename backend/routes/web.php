@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
@@ -182,4 +183,10 @@ Route::group(["prefix" => "movie"], function () {
     Route::get("/list", [MovieController::class, "index"])->name("movie.index");
     Route::get("create-page", [MovieController::class, "create"])->name("movie.create");
     Route::post("/insert", [MovieController::class, "store"])->name("movie.insert");
+});
+
+
+Route::group(["prefix" => "order"], function () {
+    Route::get("/list", [OrderController::class, "index"]);
+
 });
