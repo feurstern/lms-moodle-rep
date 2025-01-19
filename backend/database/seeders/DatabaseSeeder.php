@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Director;
 use App\Models\Movie;
 use App\Models\Movies;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\UserProfile;
@@ -37,8 +38,9 @@ class DatabaseSeeder extends Seeder
         // ]);
         // / end of movies
 
-        Customer::factory(10)->create();
-        
+        // Customer::factory(10)->create();
+        Order::factory(10)->create();
+
         // UserProfile::factory(10)->create();
 
         // User::factory()->create([
