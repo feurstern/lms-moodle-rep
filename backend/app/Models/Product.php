@@ -9,4 +9,10 @@ class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
+
+
+    function users()
+    {
+        return $this->belongsToMany(User::class, "orders", "user_id", "product_id");
+    }
 }
