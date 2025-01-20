@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
@@ -13,13 +14,13 @@ class UserController extends Controller
     /**
      * Show the profile for a given user.
      */
-    function handleMiddleware(Request $request) {
-        
-    }
+    function handleMiddleware(Request $request) {}
 
     function index()
     {
-        return User::whereNull('deleted_at')->get();
+        $user = User::all();
+        $user_profile = UserProfile::all();
+        return view("user.index", ["users" => $user, "userProfile" => $user_profile]);
     }
 
     function delete(string $id)
