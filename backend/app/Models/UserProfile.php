@@ -20,4 +20,9 @@ class UserProfile extends Model
     {
         return $query->whereNull("deleted_at");
     }
+
+    function  user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

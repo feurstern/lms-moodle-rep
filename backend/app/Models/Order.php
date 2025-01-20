@@ -9,4 +9,9 @@ class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
+
+
+    function getPRoduct(){
+        return $this->hasOne(Product::class, "product_id", "id");
+    }
 }

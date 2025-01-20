@@ -45,4 +45,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // we want to get the id
+    function userProfile()
+    {
+        // return $this->hasOne(UserProfile::class);
+        // if the database doesn't define the constrain id or valuee
+        return $this->hasOne(UserProfile::class, "user_id", "id");
+
+    }
 }

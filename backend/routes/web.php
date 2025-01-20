@@ -109,7 +109,7 @@ Route::get("news/{post}", function ($post) {
 
 
 Route::group(["prefix" => "user"], function () {
-    Route::get("/list", [UserController::class, "list"]);
+    Route::get("/list", [UserController::class, "index"]);
 });
 
 // Route::group(["prefix" => "books"], function () {
