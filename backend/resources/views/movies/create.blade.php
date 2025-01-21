@@ -21,6 +21,7 @@
                                 <div class="form-group">
                                     <label for="">Image</label>
                                     <input type="file" name="image_path" class="form-control">
+                                    <input type="hidden" name="user_id" value="11" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">

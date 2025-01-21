@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckRoleMiddleware;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Models\Director;
 use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Auth\Events\Failed;
+use Illuminate\Http\Client\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class MovieController extends Controller
+class MovieController extends Controller implements HasMiddleware
 {
+
+    public static function  middleware()
+    {
+        return [new Middleware(CheckRoleMiddleware::class, except:["index"])];
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,6 +43,11 @@ class MovieController extends Controller
             "genres" => $genres,
             "directors" => $director
         ]);
+    }
+
+
+    function handleRequest(Request $request){
+        
     }
 
     /**
