@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Middleware\CheckRoleMiddleware;
 use App\Models\Course;
 use App\Models\Customer;
 use App\Models\Movie;
@@ -178,15 +179,30 @@ Route::group(["prefix" => "customer"], function () {
 });
 
 
-
-Route::group(["prefix" => "movie"], function () {
+Route::group(["prefix" => "movie" /* "middleware" => CheckRoleMiddleware::class  */], function () {
     Route::get("/list", [MovieController::class, "index"])->name("movie.index");
     Route::get("create-page", [MovieController::class, "create"])->name("movie.create");
-    Route::post("/insert", [MovieController::class, "store"])->name("movie.insert");
+    Route::post("/insert", [MovieController::class, "store"])->name("movie.insert")->middleware(CheckRoleMiddleware::class);
 });
 
 
 Route::group(["prefix" => "order"], function () {
     Route::get("/list", [OrderController::class, "index"]);
-
 });
+
+
+// implement global middleware group to the specific routess
+Route::get("/admin-page", function () {
+    return view("admin.page");
+})->name('admin.page')->middleware("test");
+
+// implment the middlewaare alias
+
+Route::get("/admin-page2", function () {
+    return view("admin.page2");
+})->name('admin.page2')->middleware(["checkRole"]);
+
+
+Route::get("test-admin", function(){
+    dd("xoxoxo");
+})->middleware("checkRole:admin");
