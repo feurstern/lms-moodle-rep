@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CourseController;
@@ -17,11 +20,20 @@ use App\Models\Course;
 use App\Models\Customer;
 use App\Models\Movie;
 use App\Models\UserProfile;
-use Illuminate\Support\Facades\Route;
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
 
 Route::get('/', [HomeController::class, "index"]);
 
@@ -206,3 +218,5 @@ Route::get("/admin-page2", function () {
 Route::get("test-admin", function(){
     dd("xoxoxo");
 })->middleware("checkRole:admin");
+
+require __DIR__.'/auth.php';
