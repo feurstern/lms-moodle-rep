@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
@@ -18,9 +19,12 @@ class UserController extends Controller
 
     function index()
     {
-        $user = User::all();
-        $user_profile = UserProfile::all();
-        return view("user.index", ["users" => $user, "userProfile" => $user_profile]);
+        // $user = User::all();
+        // $user_profile = UserProfile::all();
+        $user= Auth::user();
+
+        // dd($user);
+        return view("user.dashboard", ["user" => $user]);
     }
 
     function delete(string $id)

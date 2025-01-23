@@ -19,7 +19,9 @@ use App\Http\Middleware\CheckRoleMiddleware;
 use App\Models\Course;
 use App\Models\Customer;
 use App\Models\Movie;
+use App\Models\User;
 use App\Models\UserProfile;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -215,8 +217,10 @@ Route::get("/admin-page2", function () {
 })->name('admin.page2')->middleware(["checkRole"]);
 
 
-Route::get("test-admin", function(){
-    dd("xoxoxo");
+Route::get("test-admin", function () {
 })->middleware("checkRole:admin");
 
-require __DIR__.'/auth.php';
+
+// just addd midleware to prevent the unauthorized access
+Route::get("user-dashboard",  [UserController::class, "index"])->middleware(['auth', 'verified'])->name("user.dashboard");
+require __DIR__ . '/auth.php';
