@@ -9,4 +9,11 @@
 
         Role : {{ auth()->user()->role }}
     </div>
+
+    <form action="{{ route("logout") }}" method="post">
+
+        @csrf
+
+        <button class="btn btn-prmary btn-xs">logout</button>
+    </form>
 @endsection
